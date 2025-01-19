@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=4,5, python Track_2/scripts/universal_training_script.py --cfg Track_2/configs/parameters/peg_insertion_v2_points.yaml
