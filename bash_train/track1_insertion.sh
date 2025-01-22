@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES=0,1, python Track_1/scripts/universal_training_script.py --cfg Track_1/configs/parameters/peg_insertion.yaml
+python Track_1/scripts/universal_training_script.py --cfg Track_1/configs/parameters/peg_insertion.yaml

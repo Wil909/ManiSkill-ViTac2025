@@ -1213,7 +1213,7 @@ if __name__ == "__main__":
         plt.savefig(filename)
         plt.close()
 
-    use_gui = True
+    use_gui = False
     use_render_rgb = True
     timestep = 0.05
 

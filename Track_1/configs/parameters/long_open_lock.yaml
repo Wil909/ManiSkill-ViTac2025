@@ -82,7 +82,7 @@ train:
   checkpoint_every: 2000
   eval_freq: 2000
   n_eval: 50
-  parallel: [0,0,0,1,1,1,1]
+  parallel: 12
   # parallel: An integer or a list of integers.
   # If you have just one GPU, we recommend using an integer.
   # If an integer is used, it represents the number of TRAIN environments you want to run in parallel,
