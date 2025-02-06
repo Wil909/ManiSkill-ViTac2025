@@ -122,6 +122,7 @@ def parse_params(environment_name, params):
 feature_extractor_classes = {
     "State": FeatureExtractorState,
     "PointCloud": FeaturesExtractorPointCloud,
+    "PointCloudState": FeaturesExtractorPointCloudState,
 }
 
 
