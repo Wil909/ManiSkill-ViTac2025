@@ -184,7 +184,7 @@ if __name__ == "__main__":
     monitor_time_callback = MonitorTimeCallback()
     monitor_memory_callback = MonitorMemUsedCallback()
 
-    WANDB = False
+    WANDB = cfg['train']['use_wandb']
     if WANDB:
         wandb_run = wandb.init(
             project=cfg["train"]["wandb_name"],

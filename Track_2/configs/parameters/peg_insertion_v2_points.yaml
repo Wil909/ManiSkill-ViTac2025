@@ -125,3 +125,4 @@ train:
   device: "cuda"
   gpu: 0
   name: "peg_insertion_v2_points"
+  use_wandb: False
