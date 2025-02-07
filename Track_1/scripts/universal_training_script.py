@@ -190,12 +190,12 @@ if __name__ == "__main__":
     monitor_time_callback = MonitorTimeCallback()
     monitor_memory_callback = MonitorMemUsedCallback()
 
-    WANDB = False
+    WANDB = cfg['train']['use_wandb']
     if WANDB:
         wandb_run = wandb.init(
-            project=cfg["train"]["wandb_name"],
-            name=f"{cfg['train']['name']}_{exp_start_time}",
-            entity="openlock",
+            project=f'mani_vitac_track1_{cfg["train"]["name"]}',
+            name=f"{cfg['train']['wandb_name']}_{exp_start_time}",
+            # entity="openlock",
             config=cfg,
             sync_tensorboard=True,
             monitor_gym=False,

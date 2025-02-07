@@ -149,6 +149,9 @@ def evaluate_policy(model, key):
                 eval_log.opt(colors=True).info(
                     f"<blue>#### Test No. {len(test_result) + 1} ####</blue>"
                 )
+                eval_log.opt(colors=True).info(
+                    f"<blue>#### Key index {i + 1} ####</blue>"
+                )
                 o, _ = env.reset(offset_list[k], key_idx=i)
                 d, ep_ret, ep_len = False, 0, 0
                 while not d:
@@ -162,6 +165,7 @@ def evaluate_policy(model, key):
                     o, r, terminated, truncated, info = env.step(action)
                     d = terminated or truncated
                     ep_ret += r
+            
                 if info["is_success"]:
                     test_result.append([True, ep_len])
                     eval_log.opt(colors=True).info(f"<green>RESULT: SUCCESS</green>")

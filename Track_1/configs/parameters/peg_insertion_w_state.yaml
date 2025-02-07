@@ -85,7 +85,7 @@ policy:
     pointnet_layernorm: True
     zero_init_output: True
     use_relative_motion: True
-    use_state: False
+    use_state: True
     state_mlp_size: [64, 64]
 
 train:
