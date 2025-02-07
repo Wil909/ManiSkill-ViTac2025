@@ -1052,7 +1052,7 @@ class PegInsertionSimEnv(gym.Env):
 
         if info["error_too_large"] or info["tactile_movement_too_large"]:
             reward_part_3 += (
-                -2
+                -4
                 * self.step_penalty
                 * (self.max_steps - self.current_episode_elapsed_steps)
                 + self.step_penalty
