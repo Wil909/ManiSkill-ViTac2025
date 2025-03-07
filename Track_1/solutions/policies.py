@@ -25,8 +25,6 @@ class TD3PolicyForPointFlowEnv(TD3Policy):
         pointnet_layernorm,
         zero_init_output,
         use_relative_motion: bool,
-        use_state: bool,
-        state_mlp_size,
         **kwargs,
     ):
         self.pointnet_in_dim = pointnet_in_dim
@@ -35,8 +33,6 @@ class TD3PolicyForPointFlowEnv(TD3Policy):
         self.pointnet_batchnorm = pointnet_batchnorm
         self.zero_init_output = zero_init_output
         self.use_relative_motion = use_relative_motion
-        self.use_state = use_state
-        self.state_mlp_size = state_mlp_size
         super(TD3PolicyForPointFlowEnv, self).__init__(*args, **kwargs)
 
     def make_actor(
@@ -53,8 +49,6 @@ class TD3PolicyForPointFlowEnv(TD3Policy):
             layernorm=self.pointnet_layernorm,
             zero_init_output=self.zero_init_output,
             use_relative_motion=self.use_relative_motion,
-            use_state=self.use_state,
-            state_mlp_size=self.state_mlp_size,
             **actor_kwargs,
         ).to(self.device)
 
@@ -78,8 +72,6 @@ class TD3PolicyForLongOpenLockPointFlowEnv(TD3Policy):
         pointnet_layernorm,
         zero_init_output,
         use_relative_motion: bool,
-        use_state: bool,
-        state_mlp_size,
         **kwargs,
     ):
         self.pointnet_in_dim = pointnet_in_dim
@@ -88,8 +80,6 @@ class TD3PolicyForLongOpenLockPointFlowEnv(TD3Policy):
         self.pointnet_batchnorm = pointnet_batchnorm
         self.use_relative_motion = use_relative_motion
         self.zero_init_output = zero_init_output
-        self.use_state = use_state
-        self.state_mlp_size = state_mlp_size
         super(TD3PolicyForLongOpenLockPointFlowEnv, self).__init__(*args, **kwargs)
 
     def make_actor(
@@ -105,8 +95,6 @@ class TD3PolicyForLongOpenLockPointFlowEnv(TD3Policy):
             layernorm=self.pointnet_layernorm,
             zero_init_output=self.zero_init_output,
             use_relative_motion=self.use_relative_motion,
-            use_state=self.use_state,
-            state_mlp_size=self.state_mlp_size,
             **actor_kwargs,
         ).to(self.device)
 

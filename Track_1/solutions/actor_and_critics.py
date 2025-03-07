@@ -63,7 +63,6 @@ class PointNetActor(Actor):
         batchnorm=False,
         layernorm=True,
         use_relative_motion=True,
-        use_state=True,
         zero_init_output=False,
         state_mlp_size=[64, 64], 
         state_mlp_activation_fn=nn.ReLU,
@@ -77,7 +76,6 @@ class PointNetActor(Actor):
             **kwargs,
         )
         self.use_relative_motion = use_relative_motion
-        self.use_state = use_state
         action_dim = get_action_dim(self.action_space)
 
         self.point_net_feature_extractor = PointNetFeatureExtractor(
@@ -85,13 +83,6 @@ class PointNetActor(Actor):
         )
 
         mlp_in_channels = 2 * pointnet_out_dim
-                
-        if self.use_state:
-            net_arch = state_mlp_size[:-1]
-            output_dim = state_mlp_size[-1]
-            state_dim = 7
-            self.state_mlp = nn.Sequential(*create_mlp(state_dim, output_dim, net_arch, state_mlp_activation_fn))
-            mlp_in_channels += output_dim
             
         if self.use_relative_motion:
             mlp_in_channels += 4
@@ -139,15 +130,6 @@ class PointNetActor(Actor):
         feature = [
             point_flow_fea,
         ]
-        
-        if self.use_state:
-            gt_offset = obs["gt_offset"]  # 4
-            relative_motion = obs["relative_motion"]  # 4
-            state = torch.cat([gt_offset, relative_motion], dim=-1)
-            state_feat = self.state_mlp(state)
-            if len(state_feat.shape) == 1:
-                state_feat = state_feat.unsqueeze(0) 
-            feature.append(state_feat)
 
         if self.use_relative_motion:
             relative_motion = obs["relative_motion"]
@@ -172,10 +154,7 @@ class LongOpenLockPointNetActor(Actor):
         batchnorm=False,
         layernorm=False,
         use_relative_motion=True,
-        use_state=True,
         zero_init_output=False,
-        state_mlp_size=[64, 64], 
-        state_mlp_activation_fn=nn.ReLU,
         **kwargs,
     ):
         super().__init__(
@@ -186,20 +165,12 @@ class LongOpenLockPointNetActor(Actor):
             **kwargs,
         )
         self.use_relative_motion = use_relative_motion
-        self.use_state = use_state
         action_dim = get_action_dim(self.action_space)
         self.point_net_feature_extractor = PointNetFeatureExtractor(
             dim=pointnet_in_dim, out_dim=pointnet_out_dim, batchnorm=batchnorm
         )
 
         mlp_in_channels = 2 * pointnet_out_dim
-        
-        if self.use_state:
-            net_arch = state_mlp_size[:-1]
-            output_dim = state_mlp_size[-1]
-            state_dim = 3
-            self.state_mlp = nn.Sequential(*create_mlp(state_dim, output_dim, net_arch, state_mlp_activation_fn))
-            mlp_in_channels += output_dim
             
         if self.use_relative_motion:
             mlp_in_channels += 3
@@ -246,14 +217,6 @@ class LongOpenLockPointNetActor(Actor):
         feature = [
             point_flow_fea,
         ]
-        
-        if self.use_state:
-            relative_motion = obs["relative_motion"]  # 4
-            state = torch.cat([relative_motion], dim=-1)
-            state_feat = self.state_mlp(state)
-            if len(state_feat.shape) == 1:
-                state_feat = state_feat.unsqueeze(0) 
-            feature.append(state_feat)
 
         if self.use_relative_motion:
             relative_motion = obs["relative_motion"]

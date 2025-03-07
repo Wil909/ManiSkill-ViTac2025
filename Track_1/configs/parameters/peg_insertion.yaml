@@ -84,13 +84,10 @@ policy:
     pointnet_batchnorm: False
     pointnet_layernorm: True
     zero_init_output: True
-    use_relative_motion: True
-    use_state: False
-    state_mlp_size: [64, 64]
 
 train:
   algorithm_name: TD3
-  total_timesteps: 800000
+  total_timesteps: 400000
   log_interval: 10
   checkpoint_every: 2000
   eval_freq: 2000
